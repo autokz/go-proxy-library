@@ -1,4 +1,4 @@
-# go_proxy
+# Go Auth proxy
 
 Go proxy libriry
 
@@ -20,8 +20,8 @@ proxy := oauthProxy.Proxy{
   OAuthRefreshGrantType: "refresh_domain",
 
   // If You need override functions ... 
-  Client    client.NetClientInterface
-  Converter converter.JwtConverterInterface
+  Client    YourSpecificClient // client.NetClientInterface
+  Converter YourSpecificConverter // converter.JwtConverterInterface
 }
 
 proxy.Init() // If you want init default Converter and NetClient functions

@@ -1,4 +1,4 @@
-# go_proxy
+# Go Auth proxy
 
 Go proxy libriry
 

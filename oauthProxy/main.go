@@ -23,9 +23,13 @@ type Proxy struct {
 }
 
 func (p *Proxy) Init() {
-	p.Client = &client.HttpClient{
-		Client: http.Client{Timeout: time.Duration(1) * time.Second},
+	if p.Client == nil {
+		p.Client = &client.HttpClient{
+			Client: http.Client{Timeout: time.Duration(1) * time.Second},
+		}
 	}
 
-	p.Converter = &converter.Converter{}
+	if p.Converter == nil {
+		p.Converter = &converter.Converter{}
+	}
 }

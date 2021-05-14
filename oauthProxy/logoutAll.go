@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func (p *Proxy) LogoutAll(authData string) (bool, error) {
+func (p *Proxy) LogoutAll(authData string)  error {
 	jwt := p.Converter.FromFrontendToJWT(authData)
 
 	var aToken string
@@ -20,8 +20,8 @@ func (p *Proxy) LogoutAll(authData string) (bool, error) {
 
 	result, _, statusCode := p.Client.Post(logoutURL, nil, headers)
 	if statusCode != 200 {
-		return false, fmt.Errorf(string(result))
+		return fmt.Errorf(string(result))
 	}
 
-	return true, nil
+	return nil
 }

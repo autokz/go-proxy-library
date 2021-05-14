@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 )
 
-func (p *Proxy) Login(username, password string) (authData string, userPayload map[string]string, err error) {
+func (p *Proxy) Login(username, password string) (authData string, userPayload map[string]interface{}, err error) {
 	loginURL := p.BaseURL + p.OAuthURL
 
 	dto := make(map[string]interface{})

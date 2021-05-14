@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func (p *Proxy) Check(authData string) (string, error) {
+func (p *Proxy) Check(authData string) error {
 	jwt := p.Converter.FromFrontendToJWT(authData)
 
 	var aToken string
@@ -19,8 +19,8 @@ func (p *Proxy) Check(authData string) (string, error) {
 
 	result, _, statusCode := p.Client.Get(checkURL, headers)
 	if statusCode != 200 {
-		return "", fmt.Errorf(string(result))
+		return fmt.Errorf(string(result))
 	}
 
-	return authData, nil
+	return nil
 }

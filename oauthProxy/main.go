@@ -1,8 +1,8 @@
 package oauthProxy
 
 import (
-	"gateway/proxy/client"
-	"gateway/proxy/converter"
+	"github.com/autokz/go-proxy-library/client"
+	"github.com/autokz/go-proxy-library/converter"
 	"net/http"
 	"time"
 )

@@ -34,15 +34,15 @@ cryptedAuthData, userPayload, err := proxy.Login("username","password") // strin
 
 // Logout
 OAuthData := "crypted_and_converted_Access_token_array_to_string"
-ok, err := proxy.Logout(OAuthData) // bool, error
+err := proxy.Logout(OAuthData) // error
 
 // Logout All
 OAuthData := "crypted_and_converted_Access_token_array_to_string"
-ok, err := proxy.LogoutAll(OAuthData) // bool, error
+err := proxy.LogoutAll(OAuthData) // error
 
 // Check
 OAuthData := "crypted_and_converted_Access_token_array_to_string"
-notModifiedSameOAuthData, err := proxy.Check(OAuthData) // string, error
+err := proxy.Check(OAuthData) // error
 
 // Refresh
 OAuthData := "crypted_and_converted_Refresh_token_array_to_string"

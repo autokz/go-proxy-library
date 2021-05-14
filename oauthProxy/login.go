@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 )
 
-func (p *Proxy) Login(username, password string) (authData, userID string, err error) {
+func (p *Proxy) Login(username, password string) (authData string, userPayload map[string]string, err error) {
 	loginURL := p.BaseURL + p.OAuthURL
 
 	dto := make(map[string]interface{})
@@ -21,15 +21,13 @@ func (p *Proxy) Login(username, password string) (authData, userID string, err e
 		return
 	}
 
+	// User Payload
+	json.Unmarshal([]byte(headers.Get("X-User-Payload")), &userPayload)
+
 	// JWT
 	var jwt map[string]interface{}
 	json.Unmarshal(result, &jwt)
-
-	// User Payload
-	uPayload := make(map[string]string)
-	json.Unmarshal([]byte(headers.Get("X-User-Payload")), &uPayload)
-
 	authData = p.Converter.FromJWTToFrontend(jwt)
-	userID = uPayload["id"]
+
 	return
 }

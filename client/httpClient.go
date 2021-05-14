@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -14,14 +15,16 @@ type HttpClient struct {
 func (c *HttpClient) Get(URL string, requestHeader map[string]interface{}) ([]byte, http.Header, int) {
 	req, err := http.NewRequest("GET", URL, nil)
 	if err != nil {
-		panic(err)
+		log.Panicln(err)
+		return nil, nil, 0
 	}
 
 	addHeaders(req, requestHeader)
 
 	resp, err := c.Client.Do(req)
 	if err != nil {
-		panic(err)
+		log.Panicln(err)
+		return nil, nil, 0
 	}
 	defer resp.Body.Close()
 
@@ -37,14 +40,16 @@ func (c *HttpClient) Post(URL string, requestBody, requestHeader map[string]inte
 
 	req, err := http.NewRequest("POST", URL, bytes.NewBuffer(bodyJson))
 	if err != nil {
-		panic(err)
+		log.Panicln(err)
+		return nil, nil, 0
 	}
 
 	addHeaders(req, requestHeader)
 
 	resp, err := c.Client.Do(req)
 	if err != nil {
-		panic(err)
+		log.Panicln(err)
+		return nil, nil, 0
 	}
 	defer resp.Body.Close()
 

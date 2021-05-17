@@ -10,21 +10,12 @@ In oauthProxy/main.go
 
 ```go
 proxy := oauthProxy.Proxy{
-  BaseURL:               "http://localhost:8080",
-  CheckURL:              "/oauth/check",
-  OAuthURL:              "/oauth/auth",
-  LogoutURL:             "/oauth/logout",
-  LogoutAllURL:          "/oauth/logout/all",
-  DomainURL:             "test.com",
   OAuthGrantType:        "password_domain",
   OAuthRefreshGrantType: "refresh_domain",
-
-  // If You need override functions ... 
-  Client    YourSpecificClient // client.NetClientInterface
+ 
+  Client    YourSpecificClient // client.OAuthClientInterface
   Converter YourSpecificConverter // converter.JwtConverterInterface
 }
-
-proxy.Init() // If you want init default Converter and NetClient functions
 ```
 
 ### Methods

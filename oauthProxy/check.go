@@ -7,12 +7,12 @@ import (
 func (p *Proxy) Check(authData string) error {
 	jwt := p.Converter.FromFrontendToJWT(authData)
 
-	var accessToken client.AccessToken
+	var accessToken string
 	if accessToken = ""; jwt["access_token"] != nil {
-		accessToken = jwt["access_token"].(client.AccessToken)
+		accessToken = jwt["access_token"].(string)
 	}
 
-	err := p.Client.Check(accessToken)
+	err := p.Client.Check(client.AccessToken(accessToken))
 	if err != nil {
 		return err
 	}

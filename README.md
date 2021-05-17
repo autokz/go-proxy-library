@@ -4,8 +4,6 @@ Go proxy libriry
 
 ## Example
 
-In oauthProxy/main.go
-
 ### Create Proxy
 
 ```go

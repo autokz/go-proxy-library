@@ -1,9 +1,5 @@
 package oauthProxy
 
-import (
-	"encoding/json"
-)
-
 func (p *Proxy) Refresh(authData string) (string, error) {
 	dto := p.Converter.FromFrontendToJWT(authData)
 
@@ -14,9 +10,7 @@ func (p *Proxy) Refresh(authData string) (string, error) {
 	}
 
 	// Converting JWT...
-	var jwt map[string]interface{}
-	json.Unmarshal([]byte(newAuthData), &jwt)
-	result := p.Converter.FromJWTToFrontend(jwt)
+	cryptedAuthData := p.Converter.FromJWTToFrontend(newAuthData)
 
-	return result, nil
+	return cryptedAuthData, nil
 }

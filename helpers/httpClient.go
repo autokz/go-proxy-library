@@ -1,4 +1,4 @@
-package client
+package helpers
 
 import (
 	"bytes"
@@ -8,11 +8,11 @@ import (
 	"net/http"
 )
 
-type HttpClient struct {
+type HttpClientHelper struct {
 	Client http.Client
 }
 
-func (c *HttpClient) Get(URL string, requestHeader map[string]interface{}) ([]byte, http.Header, int) {
+func (c *HttpClientHelper) Get(URL string, requestHeader map[string]interface{}) ([]byte, http.Header, int) {
 	req, err := http.NewRequest("GET", URL, nil)
 	if err != nil {
 		log.Panicln(err)
@@ -34,7 +34,7 @@ func (c *HttpClient) Get(URL string, requestHeader map[string]interface{}) ([]by
 	return responseBody, resp.Header, resp.StatusCode
 }
 
-func (c *HttpClient) Post(URL string, requestBody, requestHeader map[string]interface{}) ([]byte, http.Header, int) {
+func (c *HttpClientHelper) Post(URL string, requestBody, requestHeader map[string]interface{}) ([]byte, http.Header, int) {
 
 	bodyJson, _ := json.Marshal(requestBody)
 

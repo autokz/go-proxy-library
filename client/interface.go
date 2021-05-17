@@ -1,8 +1,10 @@
 package client
 
-import "net/http"
+type AccessToken string
 
-type NetClientInterface interface {
-	Get(URL string, header map[string]interface{}) (result []byte, headers http.Header, statusCode int)
-	Post(URL string, body, header map[string]interface{}) (result []byte, headers http.Header, statusCode int)
+type OAuthClientInterface interface {
+	Check(aToken AccessToken) error
+	Auth(accessData map[string]interface{}, authType string) (newAuthData string, userPayload map[string]interface{}, err error)
+	Logout(aToken AccessToken) error
+	LogoutAll(aToken AccessToken) error
 }

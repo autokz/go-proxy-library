@@ -4,30 +4,23 @@ import (
 	"encoding/json"
 )
 
-func (p *Proxy) Login(username, password string) (authData string, userPayload map[string]interface{}, err error) {
-	loginURL := p.BaseURL + p.OAuthURL
-
+func (p *Proxy) Login(username, password string) (string, map[string]interface{}, error) {
 	dto := make(map[string]interface{})
 
-	dto["grant_type"] = p.OAuthGrantType
 	dto["username"] = username
 	dto["password"] = password
-	dto["domain"] = p.DomainURL
-	dto["refresh_token"] = ""
 
-	result, headers, statusCode := p.Client.Post(loginURL, dto, nil)
-	if statusCode != 200 {
-		authData = string(result)
-		return
+	// Getting new JWT with User Payload
+	newAuthData, userPayload, err := p.Client.Auth(dto, p.OAuthGrantType)
+	if err != nil {
+		return "", nil, err
 	}
 
-	// User Payload
-	json.Unmarshal([]byte(headers.Get("X-User-Payload")), &userPayload)
-
-	// JWT
+	// Converting JWT...
 	var jwt map[string]interface{}
-	json.Unmarshal(result, &jwt)
-	authData = p.Converter.FromJWTToFrontend(jwt)
+	json.Unmarshal([]byte(newAuthData), &jwt)
+	authData := p.Converter.FromJWTToFrontend(jwt)
 
-	return
+
+	return authData, userPayload, nil
 }

@@ -1,26 +1,20 @@
 package oauthProxy
 
 import (
-	"fmt"
+	"github.com/autokz/go-proxy-library/client"
 )
 
 func (p *Proxy) LogoutAll(authData string)  error {
 	jwt := p.Converter.FromFrontendToJWT(authData)
 
-	var aToken string
-	if aToken = ""; jwt["access_token"] != nil {
-		aToken = jwt["access_token"].(string)
+	var accessToken client.AccessToken
+	if accessToken = ""; jwt["access_token"] != nil {
+		accessToken = jwt["access_token"].(client.AccessToken)
 	}
 
-	logoutURL := p.BaseURL + p.LogoutAllURL
-
-	headers := map[string]interface{}{
-		"Authorization": fmt.Sprintf("Bearer %s", aToken),
-	}
-
-	result, _, statusCode := p.Client.Post(logoutURL, nil, headers)
-	if statusCode != 200 {
-		return fmt.Errorf(string(result))
+	err := p.Client.LogoutAll(accessToken)
+	if err != nil {
+		return err
 	}
 
 	return nil

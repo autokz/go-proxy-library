@@ -1,9 +1,5 @@
 # Go Auth proxy
 
-Go proxy libriry
-
-## Example
-
 ### Create Proxy
 
 ```go

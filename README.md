@@ -1,4 +1,4 @@
-# Go Auth proxy
+# Go OAuth proxy
 
 ### Create Proxy
 

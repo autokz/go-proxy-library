@@ -7,9 +7,9 @@ type DomainType string
 func (p *Proxy) Login(username UsernameType, password PasswordType, domain DomainType) (string, map[string]interface{}, error) {
 	dto := make(map[string]interface{})
 
-	dto["username"] = username
-	dto["password"] = password
-	dto["domain"] = domain
+	dto["username"] = string(username)
+	dto["password"] = string(password)
+	dto["domain"] = string(domain)
 
 	// Getting new JWT with User Payload
 	newAuthData, userPayload, err := p.Client.Auth(dto, p.OAuthGrantType)
